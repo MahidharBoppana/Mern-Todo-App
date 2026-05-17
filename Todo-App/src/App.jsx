@@ -12,11 +12,11 @@ function App() {
   const [filter, setFilter] = useState("all");
   const [search, setSearch] = useState("");
 
+  const API = import.meta.env.VITE_API_URL;
+
   async function fetchTodos() {
     try {
-      const response = await axios.get(
-        "https://todo-backend-yobn.onrender.com/api/todos",
-      );
+      const response = await axios.get(`${API}/api/todos`);
 
       setTodos(response.data);
     } catch (error) {
@@ -31,12 +31,9 @@ function App() {
   // Add Todo
   async function addTodo(input) {
     try {
-      const response = await axios.post(
-        "https://todo-backend-yobn.onrender.com/api/todos",
-        {
-          text: input,
-        },
-      );
+      const response = await axios.post(`${API}/api/todos`, {
+        text: input,
+      });
 
       setTodos([...todos, response.data]);
     } catch (error) {
@@ -47,9 +44,7 @@ function App() {
   // Delete Todo
   async function deleteTodo(id) {
     try {
-      await axios.delete(
-        `https://todo-backend-yobn.onrender.com/api/todos/${id}`,
-      );
+      await axios.delete(`${API}/api/todos/${id}`);
 
       const updatedTodos = todos.filter((todo) => todo._id !== id);
 
@@ -64,10 +59,9 @@ function App() {
     try {
       const todoToUpdate = todos.find((todo) => todo._id === id);
 
-      const response = await axios.put(
-        `https://todo-backend-yobn.onrender.com/api/todos/${id}`,
-        { completed: !todoToUpdate.completed },
-      );
+      const response = await axios.put(`${API}/api/todos/${id}`, {
+        completed: !todoToUpdate.completed,
+      });
 
       const updatedTodos = todos.map((todo) =>
         todo._id === id ? response.data : todo,
@@ -82,10 +76,9 @@ function App() {
   // Edit Todo
   async function editTodo(id, updatedText) {
     try {
-      const response = await axios.put(
-        `https://todo-backend-yobn.onrender.com/api/todos/${id}`,
-        { text: updatedText },
-      );
+      const response = await axios.put(`${API}/api/todos/${id}`, {
+        text: updatedText,
+      });
 
       const updatedTodos = todos.map((todo) =>
         todo._id === id ? response.data : todo,
