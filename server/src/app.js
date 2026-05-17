@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 
 import todoRoutes from "./routes/todo.routes.js";
+import errorMiddleware from "./middleware/src/middleware/error.middleware.js";
 
 const app = express();
 
