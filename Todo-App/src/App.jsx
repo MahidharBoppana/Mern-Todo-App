@@ -14,7 +14,9 @@ function App() {
 
   async function fetchTodos() {
     try {
-      const response = await axios.get("http://localhost:5000/api/todos");
+      const response = await axios.get(
+        "https://todo-backend-yobn.onrender.com/api/todos",
+      );
 
       setTodos(response.data);
     } catch (error) {
@@ -29,9 +31,12 @@ function App() {
   // Add Todo
   async function addTodo(input) {
     try {
-      const response = await axios.post("http://localhost:5000/api/todos", {
-        text: input,
-      });
+      const response = await axios.post(
+        "https://todo-backend-yobn.onrender.com/api/todos",
+        {
+          text: input,
+        },
+      );
 
       setTodos([...todos, response.data]);
     } catch (error) {
@@ -42,7 +47,9 @@ function App() {
   // Delete Todo
   async function deleteTodo(id) {
     try {
-      await axios.delete(`http://localhost:5000/api/todos/${id}`);
+      await axios.delete(
+        `https://todo-backend-yobn.onrender.com/api/todos/${id}`,
+      );
 
       const updatedTodos = todos.filter((todo) => todo._id !== id);
 
@@ -58,7 +65,7 @@ function App() {
       const todoToUpdate = todos.find((todo) => todo._id === id);
 
       const response = await axios.put(
-        `http://localhost:5000/api/todos/${id}`,
+        `https://todo-backend-yobn.onrender.com/api/todos/${id}`,
         { completed: !todoToUpdate.completed },
       );
 
@@ -76,7 +83,7 @@ function App() {
   async function editTodo(id, updatedText) {
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/todos/${id}`,
+        `https://todo-backend-yobn.onrender.com/api/todos/${id}`,
         { text: updatedText },
       );
 
